@@ -1,23 +1,37 @@
+<div style="text-align:center">
+<img src="ui_resources/icons/jsViewer.png" alt="image_description" width="128" height="128">
+</div>
+
+---
 # Json-Viewer
 
 Json-Viewer is a small application that displays JSON data in a hierarchical tree structure. It allows users to expand and collapse nodes and provides animations to make the user interface more user-friendly.
 
-## Installation
+[//]: # (## Installation)
 
-To use Json-Viewer, you need to install PySide6, which is a Python binding for the Qt application framework. You can install it using pip:
+[//]: # ()
+[//]: # (To use Json-Viewer, you need to install PySide6, which is a Python binding for the Qt application framework. You can install it using pip:)
 
-```
-pip install PySide6
+[//]: # ()
+[//]: # (```)
 
-```
+[//]: # (pip install PySide6)
+
+[//]: # (```)
+
+
+
 
 ## Usage
 
-You can use Json-Viewer in your Python code by creating an instance of the `JsonViewerWidget` class and passing a JSON object as a parameter. Here is an example:
+Use Json-Viewer as a standalone app,
+![img.png](sources%2Fimg.png)
+
+or embed it in your PyQt/PySide6 Python code by creating an instance of the `JsonViewerWidget` class and passing a JSON object as a parameter. Here is an example:
 
 ```python
 from PySide6.QtWidgets import QApplication
-from json_viewer import JsonViewerWidget
+from JsonViewer.jsonViewer import JsonViewerWidget
 
 if __name__ == '__main__':
     app = QApplication([])

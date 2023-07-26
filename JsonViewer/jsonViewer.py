@@ -1,7 +1,10 @@
+import json
+
 from PySide6.QtCore import Qt, QPropertyAnimation, QRect
 from PySide6.QtGui import QStandardItem, QStandardItemModel, QColor, QIcon, QAction
-from PySide6.QtWidgets import QTreeView, QStyledItemDelegate, QMenu, QApplication
-import ui_resources.resources_rc
+from PySide6.QtWidgets import QTreeView, QStyledItemDelegate, QMenu, QApplication, QFileDialog, QMainWindow
+import chardet
+import JsonViewer.resources_rc
 
 class JsonItemDelegate(QStyledItemDelegate):
     def initStyleOption(self, option, index):
@@ -21,13 +24,16 @@ class JsonViewerWidget(QTreeView):
         self.setSelectionMode(QTreeView.SingleSelection)
         self.setAnimated(True)
         self.setExpandsOnDoubleClick(True)
-        self.setModel(self._create_model(json_data))
-
         self.setEditTriggers(QTreeView.NoEditTriggers)
 
+        self.setModel(self._create_model(json_data))
         self.expandAll()
 
         self._current_animation = None
+
+    def set_json_data(self, json_data):
+        self.setModel(self._create_model(json_data))
+        self.expandAll()
 
     def _create_model(self, json_data):
         model = QStandardItemModel()
@@ -125,27 +131,115 @@ class JsonViewerWidget(QTreeView):
             parent = self.model().itemFromIndex(index.parent())
             parent.removeRow(index.row())
 
+    def current_animation(self):
+        return self._current_animation
+
+# a main window containing a button to select the json file
+class JsonViewerWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Json Viewer")
+        self.setWindowIcon(QIcon(":/icons/icons/jsViewer.png"))
+
+        self.jsViewer = JsonViewerWidget({})
+        self.setCentralWidget(self.jsViewer)
+        self.resize(640, 480)
+
+        self._create_menu()
+
+    def _create_menu(self):
+        menu = self.menuBar().addMenu("File")
+        action = QAction("Open", self)
+        action.triggered.connect(self._open_file)
+        menu.addAction(action)
+
+    def _open_file(self):
+        file_name, _ = QFileDialog.getOpenFileName(self, "Open File", "", "Json (*.json)")
+        if file_name:
+            encode = chardet.detect(open(file_name, "rb").read())["encoding"]
+            with open(file_name, "r", encoding=encode) as f:
+                json_data = json.load(f)
+            self.jsViewer.set_json_data(json_data)
+
+    def closeEvent(self, event):
+        if self.jsViewer.current_animation():
+            event.ignore()
+        else:
+            super().closeEvent(event)
+
+    def keyPressEvent(self, event):
+        if event.key() == Qt.Key_Escape:
+            self.jsViewer.collapseAll()
+        else:
+            super().keyPressEvent(event)
+
+    def mousePressEvent(self, event):
+        if event.button() == Qt.RightButton:
+            self.jsViewer.collapseAll()
+        else:
+            super().mousePressEvent(event)
+
+    def resizeEvent(self, event):
+        if self.jsViewer.current_animation():
+            event.ignore()
+        else:
+            super().resizeEvent(event)
+
+    def showEvent(self, event):
+        if self.jsViewer.current_animation():
+            event.ignore()
+        else:
+            super().showEvent(event)
+
+    def wheelEvent(self, event):
+        if self.jsViewer.current_animation():
+            event.ignore()
+        else:
+            super().wheelEvent(event)
+
+    def mouseMoveEvent(self, event):
+        if self.jsViewer.current_animation():
+            event.ignore()
+        else:
+            super().mouseMoveEvent(event)
+
+    def mouseReleaseEvent(self, event):
+        if self.jsViewer.current_animation():
+            event.ignore()
+        else:
+            super().mouseReleaseEvent(event)
+
+    def mouseDoubleClickEvent(self, event):
+        if self.jsViewer.current_animation():
+            event.ignore()
+        else:
+            super().mouseDoubleClickEvent(event)
+
+
+
+
 if __name__ == '__main__':
     import sys
 
     app = QApplication(sys.argv)
-    window = JsonViewerWidget({
-        "name": "John",
-        "age": 30,
-        "cars": [
-            {
-                "name": "Ford",
-                "models": ["Fiesta", "Focus", "Mustang"]
-            },
-            {
-                "name": "BMW",
-                "models": ["320", "X3", "X5"]
-            },
-            {
-                "name": "Fiat",
-                "models": ["500", "Panda"]
-            }
-        ]
-    })
+    # window = JsonViewerWidget({
+    #     "name": "John",
+    #     "age": 30,
+    #     "cars": [
+    #         {
+    #             "name": "Ford",
+    #             "models": ["Fiesta", "Focus", "Mustang"]
+    #         },
+    #         {
+    #             "name": "BMW",
+    #             "models": ["320", "X3", "X5"]
+    #         },
+    #         {
+    #             "name": "Fiat",
+    #             "models": ["500", "Panda"]
+    #         }
+    #     ]
+    # })
+    window = JsonViewerWindow()
     window.show()
     sys.exit(app.exec())

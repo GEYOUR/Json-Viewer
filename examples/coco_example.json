@@ -1,0 +1,59 @@
+{
+    "info": {
+        "description": "Example Dataset",
+        "url": "<https://www.example.com>",
+        "version": "1.0",
+        "year": 2021,
+        "contributor": "John Doe",
+        "date_created": "2021/09/01"
+    },
+    "licenses": [
+        {
+            "url": "<https://www.example.com/license>",
+            "id": 1,
+            "name": "Example License"
+        }
+    ],
+    "images": [
+        {
+            "file_name": "example1.jpg",
+            "height": 480,
+            "width": 640,
+            "id": 1
+        },
+        {
+            "file_name": "example2.jpg",
+            "height": 480,
+            "width": 640,
+            "id": 2
+        }
+    ],
+    "annotations": [
+        {
+            "image_id": 1,
+            "id": 1,
+            "category_id": 1,
+            "bbox": [50, 50, 100, 100],
+            "area": 5000
+        },
+        {
+            "image_id": 2,
+            "id": 2,
+            "category_id": 2,
+            "bbox": [100, 100, 150, 150],
+            "area": 2500
+        }
+    ],
+    "categories": [
+        {
+            "supercategory": "person",
+            "id": 1,
+            "name": "person"
+        },
+        {
+            "supercategory": "vehicle",
+            "id": 2,
+            "name": "car"
+        }
+    ]
+}
