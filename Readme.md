@@ -1,6 +1,6 @@
-<div style="text-align:center">
+<p align="center">
 <img src="ui_resources/icons/jsViewer.png" alt="image_description" width="128" height="128">
-</div>
+</p>
 
 ---
 # Json-Viewer
