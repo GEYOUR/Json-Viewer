@@ -57,3 +57,8 @@ compile_commands.json
 # jetbrains
 .idea
 *.iml
+
+# distribution
+*.egg-info
+*.egg
+dist

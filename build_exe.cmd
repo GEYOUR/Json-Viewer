@@ -5,7 +5,7 @@ set target_path=%prefix%%target_name%.py
 set output_dir=dist/
 
 python -m nuitka --mingw64 ^
---nofollow-imports ^
+--standalone ^
 --enable-plugin=pyside6 ^
 --include-package=JsonViewer ^
 --windows-icon-from-ico=ui_resources/icons/jsViewer.png ^
