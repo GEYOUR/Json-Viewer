@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="icons">
+        <file>icons/icons8-curly-brackets-50.png</file>
+        <file>icons/icons8-list-50.png</file>
+        <file>icons/icons8-negative-24.png</file>
+        <file>icons/jsViewer.png</file>
+    </qresource>
+</RCC>
