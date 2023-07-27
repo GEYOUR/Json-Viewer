@@ -11,6 +11,7 @@ class JsonItemDelegate(QStyledItemDelegate):
         super().initStyleOption(option, index)
         font_size = option.font.pointSize() - 2
         option.font.setPointSize(font_size)
+        option.font.setFamily("Consolas")
 
 
 class JsonViewerWidget(QTreeView):
