@@ -1,3 +1,5 @@
+call conda activate Product
+
 set target=__main__
 set target_name=JsonViewer
 set prefix=JsonViewer/
