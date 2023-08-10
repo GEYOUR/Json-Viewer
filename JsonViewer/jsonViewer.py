@@ -1,11 +1,16 @@
 import json
 
+import yaml
 from PySide6.QtCore import Qt, QPropertyAnimation, QRect
 from PySide6.QtGui import QStandardItem, QStandardItemModel, QColor, QIcon, QAction
 from PySide6.QtWidgets import QTreeView, QStyledItemDelegate, QMenu, QApplication, QFileDialog, QMainWindow, \
     QMessageBox, QVBoxLayout, QDialog, QTextEdit
+from typing import TYPE_CHECKING
 import chardet
 import resources_rc
+
+if TYPE_CHECKING:
+    print(resources_rc)
 
 class JsonItemDelegate(QStyledItemDelegate):
     def initStyleOption(self, option, index):
@@ -168,15 +173,16 @@ class JsonViewerWindow(QMainWindow):
         self.menuBar().addAction("Exit", self.close)
         self.menuBar().addAction("Help", self._help)
 
-
-
     def _open_file(self):
-        file_name, _ = QFileDialog.getOpenFileName(self, "Open File", "", "Json (*.json)")
+        file_name, _ = QFileDialog.getOpenFileName(self, "Open File", "", "Notation Files (*.json *.yaml *.yml);;All Files (*.*)")
         if file_name:
             encode = chardet.detect(open(file_name, "rb").read())["encoding"]
             with open(file_name, "r", encoding=encode) as f:
-                json_data = json.load(f)
-            self.jsViewer.set_json_data(json_data)
+                if file_name.endswith(('.yaml', '.yml')):
+                    data = yaml.safe_load(f)
+                else:
+                    data = json.load(f)
+            self.jsViewer.set_json_data(data)
 
     def _help(self):
         # QMessageBox.about(self, "Help", "This is a Json Viewer. You can open a json file and view it."

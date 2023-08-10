@@ -1,0 +1,70 @@
+mmcls_version:
+  predictor:
+    class_name: Predictor
+    module_name: detection.classification.predictor
+  visualizer:
+    class_name: Visualizer
+    module_name: detection.classification.visualizer
+mmdet_version:
+  predictor:
+    class_name: Predictor
+    module_name: detection.detect.predictor
+  visualizer:
+    class_name: Visualizer
+    module_name: detection.detect.utils_visualize
+mmocr_version:
+  predictor:
+    class_name: Predictor
+    module_name: detection.ocr.predictor
+  visualizer:
+    class_name: Visualizer
+    module_name: detection.ocr.visualizer
+mmpose_version:
+  predictor:
+    class_name: Predictor
+    module_name: detection.keypoint.predictor
+  visualizer:
+    class_name: Visualizer
+    module_name: detection.keypoint.visualizer
+mmpretrain_version:
+  predictor:
+    class_name: Predictor
+    module_name: detection.cls_v2.predictor
+  visualizer:
+    class_name: Visualizer
+    module_name: detection.cls_v2.visualizer
+mmseg_version:
+  predictor:
+    class_name: Predictor
+    module_name: detection.segmentation.predictor
+  visualizer:
+    class_name: Visualizer
+    module_name: detection.segmentation.visualizer
+yolo:
+  predictor:
+    class_name: Predictor
+    module_name: detection.yolov8.predictor
+  visualizer:
+    class_name: MMDetVisualizer
+    module_name: detection.detect.visualizer
+全AI-分类+检测:
+  predictor:
+    class_name: Predictor
+    module_name: detection.cls_det.predictor
+  visualizer:
+    class_name: Visualizer
+    module_name: detection.cls_det.visualizer
+全AI-定位+检测:
+  predictor:
+    class_name: Predictor
+    module_name: detection.loc_det.predictor
+  visualizer:
+    class_name: Visualizer
+    module_name: detection.loc_det.visualizer
+全AI-检测+关键点:
+  predictor:
+    class_name: Predictor
+    module_name: detection.det_kpt.predictor
+  visualizer:
+    class_name: Visualizer
+    module_name: detection.det_kpt.visualizer
