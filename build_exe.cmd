@@ -1,3 +1,5 @@
+REM activate venv if needed
+```
 set target=__main__
 set target_name=JsonViewer
 set prefix=JsonViewer/
